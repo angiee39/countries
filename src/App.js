@@ -43,13 +43,13 @@ const CountryList = ({countriesToShow, setCountriesToShow}) => {
 
 const CountryInfo = ({countriesToShow}) => {
   // const api_key = process.env.REACT_APP_API_KEY
-  const api_key = "9c7a7c63e63a6daa67ca931b615fdaaa"
+  const api_key = "ab427a4ef316df912aa8a386e9ce3e86"
   const country = countriesToShow[0]
   const [ weather, setWeather ] = useState(null)
 
   useEffect(() => {
     axios
-      .get(`https://cors-anywhere.herokuapp.com/http://api.weatherstack.com/current?access_key=${api_key}&query=${country.capital}`)
+      .get(`https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&APPID=${api_key}`)
       .then(response => {
         setWeather(response.data)
         console.log('called weather api')
@@ -79,10 +79,10 @@ const Weather = ({weather}) => {
   if (!weather) return null
   return (
     <div>
-      <h3>Weather in {weather.location.name}</h3>
-      <p><b>temperature:</b> {weather.current.temperature} Celcius</p>
-      <img src={weather.current.weather_icons} alt=""/>
-      <p><b>wind:</b> {weather.current.wind_speed} mph direction {weather.current.wind_dir}</p>
+      <h3>Weather in {weather.name}</h3>
+      <p><b>temperature:</b> {(weather.main.temp - 273.15).toFixed(2)} Celcius</p>
+      <p><b>wind:</b> {weather.wind.speed} mph direction {weather.wind.deg} deg</p>
+      <p><b>humidity:</b> {weather.main.humidity} {weather.weather[0].main}</p>
     </div>
   )
 }
@@ -122,3 +122,4 @@ function App() {
 }
 
 export default App;
+
