@@ -49,7 +49,7 @@ const CountryInfo = ({countriesToShow}) => {
 
   useEffect(() => {
     axios
-      .get(`http://api.weatherstack.com/current?access_key=${api_key}&query=${country.capital}`)
+      .get(`https://cors-anywhere.herokuapp.com/http://api.weatherstack.com/current?access_key=${api_key}&query=${country.capital}`)
       .then(response => {
         setWeather(response.data)
         console.log('called weather api')
